@@ -42,6 +42,16 @@ sudo mysql -u root -psecret -e "create database wordpress;"
 sudo mysql -u root -psecret -e "grant usage on *.* to wordpress@localhost identified by 'password';"
 sudo mysql -u root -psecret -e "grant all privileges on wordpress.* to wordpress@localhost;"
 
+#phpmyadmin
+echo -e "${COLOR}---Install PHPMYADMIN---${COLOR_RST}"
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/dbconfig-install boolean true'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/app-password-confirm password secret'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/admin-pass password secret'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/app-pass password secret'
+sudo debconf-set-selections <<< 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect none'
+sudo apt-get install -y phpmyadmin
+sudo ln -fs /usr/share/phpmyadmin /vagrant/phpmyadmin
+
 # enable mod rewrite for apache2
 echo -e "${COLOR}---enabling rewrite module---${COLOR_RST}"
 if [ ! -f /etc/apache2/mods-enabled/rewrite.load ] ; then
