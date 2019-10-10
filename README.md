@@ -1,4 +1,4 @@
-##Step 1, Clone REPO
+## Step 1, Clone REPO
 
 First `cd` into the directory of your choice
 
