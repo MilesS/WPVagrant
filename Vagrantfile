@@ -16,5 +16,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "./scripts/xenial64-wp-provision.sh"
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.synced_folder ".", "/vagrant", :group => "www-data", :mount_options => ['dmode=775','fmode=664']
+  
+  config.trigger.before :destroy do |trigger|
+    trigger.name = "Impossible trigger, Pre-Destroy"
+    trigger.run_remote = { inline: "rm /vagrant/wordpress.bak" }
+    trigger.run_remote = { inline: "mv /vagrant/wordpress.sql /vagrant/wordpress.bak" }
+    trigger.run_remote = { inline: "mysqldump -u root -psecret wordpress > /vagrant/wordpress.sql" }
+    trigger.on_error = :continue
+  end
 
 end
