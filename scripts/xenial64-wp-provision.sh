@@ -93,7 +93,7 @@ echo -e "${COLOR}---install WP CLI---${COLOR_RST}"
 sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 sudo chown root. wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
-sudo chmod +x /usr/local/bin/wp-cli.phar
+sudo chmod +x /usr/local/bin/wp
 
 echo -e "${COLOR}---update WP, flush links, update plugins ---${COLOR_RST}"
 wp core update
